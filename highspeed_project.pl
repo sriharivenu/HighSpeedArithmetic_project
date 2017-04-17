@@ -31,7 +31,7 @@ my $l = 0;
 for( my $i1 = 0; $i1 < $n; $i1 = $i1 +1) {
 	for(my $j1 = $i1; $j1 < $n + $i1; $j1 = $j1 + 1){
 		$l = $j1 - $i1;	
-		print $file "And A$i1$l(P$i1$l, a$i1, b$l);\n";
+		print $file "And A$i1$l(P$i1$l, a[$i1], b[$l]);\n";
 		$mat{$n_var}{$i1}{$j1} = "P$i1$l";		
 	}
 }
@@ -58,24 +58,33 @@ for(my $lev = 0; $lev < $height; $lev = $lev + 1){
 			$i2 = $max_3;
 			if($counter == 3){
 				#print "$j2 $i2 $lev $row $level \n";
+				print $file "wire S$lev$level$i2$j2;\n";
+				print $file "wire C$lev$level$i2$j2;\n";
 				print $file "FullAdder FA$lev$level$i2$j2(S$lev$level$i2$j2, C$lev$level$i2$j2, $mat{$lev}{$max_3}{$j2}, $mat{$lev}{$max_3 + 1}{$j2}, $mat{$lev}{$max_3+ 2}{$j2});\n"; 
+				
 				$mat{$lev + 1}{$row}{$j2} = "S$lev$level$i2$j2";
 				$mat{$lev + 1}{$row + 1}{$j2 + 1} = "C$lev$level$i2$j2";
 			}
 			elsif($counter == 2){
 				if(exists $mat{$lev}{$max_3}{$j2}){
 					if(exists $mat{$lev}{$max_3+1}{$j2}){
+						print $file "wire S$lev$level$i2$j2;\n";
+						print $file "wire C$lev$level$i2$j2;\n";
 						print $file "HalfAdder HA$lev$level$i2$j2(S$lev$level$i2$j2, C$lev$level$i2$j2, $mat{$lev}{$max_3}{$j2}, $mat{$lev}{$max_3 + 1}{$j2});\n";
 						$mat{$lev + 1}{$row}{$j2} = "S$lev$level$i2$j2";
 						$mat{$lev + 1}{$row + 1}{$j2 + 1} = "C$lev$level$i2$j2";
 					}
 					else {
+						print $file "wire S$lev$level$i2$j2;\n";
+						print $file "wire C$lev$level$i2$j2;\n";
 						print $file "HalfAdder HA$lev$level$i2$j2(S$lev$level$i2$j2, C$lev$level$i2$j2, $mat{$lev}{$max_3}{$j2}, $mat{$lev}{$max_3 + 2}{$j2});\n";
 						$mat{$lev + 1}{$row}{$j2} = "S$lev$level$i2$j2";
 						$mat{$lev + 1}{$row + 1}{$j2 + 1} = "C$lev$level$i2$j2";						
 					}			
 				}
 				else{
+					print $file "wire S$lev$level$i2$j2;\n";
+					print $file "wire C$lev$level$i2$j2;\n";
 					print $file "HalfAdder HA$lev$level$i2$j2(S$lev$level$i2$j2, C$lev$level$i2$j2, $mat{$lev}{$max_3+1}{$j2}, $mat{$lev}{$max_3 + 2}{$j2});\n";
 					$mat{$lev + 1}{$row}{$j2} = "S$lev$level$i2$j2";
 					$mat{$lev + 1}{$row + 1}{$j2 + 1} = "C$lev$level$i2$j2";
