@@ -5,7 +5,7 @@ use warnings;
 
 #Let n be the number of bits of input;
 
-my $n = 8;
+my $n = 16;
 my $columns = 2*$n; #The total umber of columns
 
 #using hash for maintaing the matrix in terms of columns
@@ -39,12 +39,17 @@ for( my $i1 = 0; $i1 < $n; $i1 = $i1 +1) {
 my $level = 0;
 my $counter = 0;
 my $row = 0;
+my $lay = 0;
+$lay = $n;
+my $cnt = 0;
 
 for(my $lev = 0; $lev < $height; $lev = $lev + 1){
 	print $file " /************************** Height - $lev ********************************/ \n";
 	$row = 0;
 	$level = 0;
-	for(my $max_3 = 0; $max_3 < $n; $max_3 = $max_3 + 3){
+	$cnt = 2*(int($lay/3)) + int($lay%3);
+	for(my $max_3 = 0; $max_3 < $lay; $max_3 = $max_3 + 3){
+		print $file " /************************** Layer - $max_3 ********************************/ \n";
 		$level = $level + 1;
 		$counter = 0;
 		for(my $j2 = 0; $j2 < 2*$n; $j2 = $j2 + 1){
@@ -103,6 +108,7 @@ for(my $lev = 0; $lev < $height; $lev = $lev + 1){
 		}
 	$row = $row + 2;	
 	}
+	$lay = $cnt;
 }
 print "Finished !!!\n";
 
