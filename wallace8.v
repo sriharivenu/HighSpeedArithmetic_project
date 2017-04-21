@@ -1,8 +1,9 @@
-module wallace8(out, a, b);
+module wallace8(out_end,out, a, b);
 
 	input [7:0]a;
 	input [7:0]b;
-	output [8:0]out;
+	output [7:0]out;
+	output out_end;
 	wire S0101;
 	wire C0101;
 
@@ -288,95 +289,109 @@ module wallace8(out, a, b);
 	wire cin5;
 
 	//Row 1
-	lookAheadLogic row1(cout1[2:0], gout1, pout1, la1[3:0], lb1[3:0], cin1);
-	lookAheadLogic row2(cout2[2:0], gout2, pout2, la2[3:0], lb2[3:0], cin2);
+	wire [3:0] pin1;
+	wire [3:0] pin2;
+	wire [3:0] pin4;
+	wire [3:0] pin5;
+	wire [3:0] gin1;
+	wire [3:0] gin2;
+	wire [3:0] gin4;
+	wire [3:0] gin5;	
+	
+	lookAheadLogic row1(cout1[2:0], gout1, pout1, pin1[3:0], gin1[3:0], cin1);
+	lookAheadLogic row2(cout2[2:0], gout2, pout2, pin2[3:0], gin2[3:0], cin2);
 	lookAheadLogic row3(cout3[2:0], gout3, pout3, la3[3:0], lb3[3:0], cin3);
+	pgGen pgRow1(pin1[3:0],gin1[3:0],la1,lb1);	
+	pgGen pgRow2(pin2[3:0],gin2[3:0],la2,lb2);	
+	
 	assign la1= {P04,P03,P02,P01};
 	assign lb1= {P13,P12,P11,P10};
 	assign cin1=0;
-	assign la2= {2'b0,P05,P06};
+	assign la2= {2'b11,P06,P05};
 	assign lb2= {2'b0,P15,P14};
 	assign cin2=cout3[0];
-	assign la3= {2'b0,pout2,pout1};
+	assign la3= {2'b11,pout2,pout1};
 	assign lb3= {2'b0,gout2,gout1}; //gout1 = final carry1
 	assign cin3=0;
 
 	//Row 2
-	lookAheadLogic row4(cout4[2:0], gout4, pout4, la4[3:0], lb4[3:0], cin4); //gout4= final carry2
+	lookAheadLogic row4(cout4[2:0], gout4, pout4, pin4[3:0], gin4[3:0], cin4); //gout4= final carry2
+	pgGen pgRow4(pin4[3:0],gin4[3:0],la4,lb4);	
+	
 	assign la4= {P24,P23,P22,P21};
-	assign lb1= {P33,P32,P31,P30};
-	assign cin1=0;
+	assign lb4= {P33,P32,P31,P30};
+	assign cin4=0;
 
 	//Row 3
 	lookAheadLogic row5(cout5[2:0], gout5, pout5, la5[3:0], lb5[3:0], cin5); //gout5= final carry3
-	assign la4= {2'b0,P42,P41};
-	assign lb1= {2'b0,P51,P50};
-	assign cin1=0;
+	assign la5= {2'b11,P42,P41};
+	assign lb5= {2'b0,P51,P50};
+	assign cin5=0;
 	
 	 /************************** and gate DOT PRODUCT matrix ********************************/ 
 	and A00(P00, a[0], b[0]);
-	and A01(P01, a[0], b[1]);
-	and A02(P02, a[0], b[2]);
-	and A03(P03, a[0], b[3]);
-	and A04(P04, a[0], b[4]);
-	and A05(P05, a[0], b[5]);
-	and A06(P06, a[0], b[6]);
-	and A07(P07, a[0], b[7]);
-	and A10(P10, a[1], b[0]);
+	and A01(P01, a[1], b[0]);
+	and A02(P02, a[2], b[0]);
+	and A03(P03, a[3], b[0]);
+	and A04(P04, a[4], b[0]);
+	and A05(P05, a[5], b[0]);
+	and A06(P06, a[6], b[0]);
+	and A07(P07, a[7], b[0]);
+	and A10(P10, a[0], b[1]);
 	and A11(P11, a[1], b[1]);
-	and A12(P12, a[1], b[2]);
-	and A13(P13, a[1], b[3]);
-	and A14(P14, a[1], b[4]);
-	and A15(P15, a[1], b[5]);
-	and A16(P16, a[1], b[6]);
-	and A17(P17, a[1], b[7]);
-	and A20(P20, a[2], b[0]);
-	and A21(P21, a[2], b[1]);
+	and A12(P12, a[2], b[1]);
+	and A13(P13, a[3], b[1]);
+	and A14(P14, a[4], b[1]);
+	and A15(P15, a[5], b[1]);
+	and A16(P16, a[6], b[1]);
+	and A17(P17, a[7], b[1]);
+	and A20(P20, a[0], b[2]);
+	and A21(P21, a[1], b[2]);
 	and A22(P22, a[2], b[2]);
-	and A23(P23, a[2], b[3]);
-	and A24(P24, a[2], b[4]);
-	and A25(P25, a[2], b[5]);
-	and A26(P26, a[2], b[6]);
-	and A27(P27, a[2], b[7]);
-	and A30(P30, a[3], b[0]);
-	and A31(P31, a[3], b[1]);
-	and A32(P32, a[3], b[2]);
+	and A23(P23, a[3], b[2]);
+	and A24(P24, a[4], b[2]);
+	and A25(P25, a[5], b[2]);
+	and A26(P26, a[6], b[2]);
+	and A27(P27, a[7], b[2]);
+	and A30(P30, a[0], b[3]);
+	and A31(P31, a[1], b[3]);
+	and A32(P32, a[2], b[3]);
 	and A33(P33, a[3], b[3]);
-	and A34(P34, a[3], b[4]);
-	and A35(P35, a[3], b[5]);
-	and A36(P36, a[3], b[6]);
-	and A37(P37, a[3], b[7]);
-	and A40(P40, a[4], b[0]);
-	and A41(P41, a[4], b[1]);
-	and A42(P42, a[4], b[2]);
-	and A43(P43, a[4], b[3]);
+	and A34(P34, a[4], b[3]);
+	and A35(P35, a[5], b[3]);
+	and A36(P36, a[6], b[3]);
+	and A37(P37, a[7], b[3]);
+	and A40(P40, a[0], b[4]);
+	and A41(P41, a[1], b[4]);
+	and A42(P42, a[2], b[4]);
+	and A43(P43, a[3], b[4]);
 	and A44(P44, a[4], b[4]);
-	and A45(P45, a[4], b[5]);
-	and A46(P46, a[4], b[6]);
-	and A47(P47, a[4], b[7]);
-	and A50(P50, a[5], b[0]);
-	and A51(P51, a[5], b[1]);
-	and A52(P52, a[5], b[2]);
-	and A53(P53, a[5], b[3]);
-	and A54(P54, a[5], b[4]);
+	and A45(P45, a[5], b[4]);
+	and A46(P46, a[6], b[4]);
+	and A47(P47, a[7], b[4]);
+	and A50(P50, a[0], b[5]);
+	and A51(P51, a[1], b[5]);
+	and A52(P52, a[2], b[5]);
+	and A53(P53, a[3], b[5]);
+	and A54(P54, a[4], b[5]);
 	and A55(P55, a[5], b[5]);
-	and A56(P56, a[5], b[6]);
-	and A57(P57, a[5], b[7]);
-	and A60(P60, a[6], b[0]);
-	and A61(P61, a[6], b[1]);
-	and A62(P62, a[6], b[2]);
-	and A63(P63, a[6], b[3]);
-	and A64(P64, a[6], b[4]);
-	and A65(P65, a[6], b[5]);
+	and A56(P56, a[6], b[5]);
+	and A57(P57, a[7], b[5]);
+	and A60(P60, a[0], b[6]);
+	and A61(P61, a[1], b[6]);
+	and A62(P62, a[2], b[6]);
+	and A63(P63, a[3], b[6]);
+	and A64(P64, a[4], b[6]);
+	and A65(P65, a[5], b[6]);
 	and A66(P66, a[6], b[6]);
-	and A67(P67, a[6], b[7]);
-	and A70(P70, a[7], b[0]);
-	and A71(P71, a[7], b[1]);
-	and A72(P72, a[7], b[2]);
-	and A73(P73, a[7], b[3]);
-	and A74(P74, a[7], b[4]);
-	and A75(P75, a[7], b[5]);
-	and A76(P76, a[7], b[6]);
+	and A67(P67, a[7], b[6]);
+	and A70(P70, a[0], b[7]);
+	and A71(P71, a[1], b[7]);
+	and A72(P72, a[2], b[7]);
+	and A73(P73, a[3], b[7]);
+	and A74(P74, a[4], b[7]);
+	and A75(P75, a[5], b[7]);
+	and A76(P76, a[6], b[7]);
 	and A77(P77, a[7], b[7]);
 	
 	 /************************** Height - 0 ********************************/ 
@@ -410,7 +425,7 @@ module wallace8(out, a, b);
 	//fullAdder FA1104(S1104, C1104, S0104, C0103, S0234);
 	//fullAdder FA1105(S1105, C1105, S0105, C0104, S0235);
 	//fullAdder FA1106(S1106, C1106, S0106, C0105, S0236);
-	fullAdder FA1107(S1107, C1107, S0107, gout1, S0237);    //remove C0106, add
+	fullAdder FA1107(S1107, C1107, S0107, gout1, S0237);    //remove C0106, add gout1
 	fullAdder FA1108(S1108, C1108, S0108, C0107, S0238);
 	fullAdder FA1109(S1109, C1109, P27, C0108, S0239);
 	//halfAdder HA1236(S1236, C1236, C0235, P60);
@@ -447,16 +462,10 @@ module wallace8(out, a, b);
 	fullAdder FA31012(S31012, C31012, S21012, C21011, C12311);
 	fullAdder FA31013(S31013, C31013, S12313, C21012, C12312);
 	halfAdder HA31014(S31014, C31014, S12314, C12313);
+	wire [7:0] in1 = {C31014,S31014,S31013,S31012,S31011,S31010,S3109,S3108};
+	wire [7:0] in2 = {C12314,C31013,C31012,C31011,C31010,C3109,C3108,C3107};
+	assign out= in1+in2;
+	assign out_end = S3107;
 	
-	
-	assign out[0]= S3107;
-	assign out[1]=S3108+C3107;
-	assign out[2]=S3109+C3108;
-	assign out[3]=S31010+C3109;
-	assign out[4]=S31011+C31010;
-	assign out[5]=S31012+C31011;
-	assign out[6]=S31013+C31012;
-	assign out[7]=S31014+C31013;
-	assign out[8]=C31014+C12314;
 	
 	endmodule 
