@@ -1,0 +1,50 @@
+C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/wallace16.v {1 {vlog -work work -stats=none C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/wallace16.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module wallace16
+
+Top level modules:
+	wallace16
+
+} {} {}} C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/wallace8.v {1 {vlog -work work -stats=none C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/wallace8.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module wallace8
+
+Top level modules:
+	wallace8
+
+} {} {}} C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/pgGen.v {1 {vlog -work work -stats=none C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/pgGen.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module pgGen
+
+Top level modules:
+	pgGen
+
+} {} {}} C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/lookAheadLogic.v {1 {vlog -work work -stats=none C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/lookAheadLogic.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module lookAheadLogic
+
+Top level modules:
+	lookAheadLogic
+
+} {} {}} C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/dadda8.v {1 {vlog -work work -stats=none {C:\Users\Jayant\Desktop\HighSpeedArithmetic_project\dadda8.v}
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module dadda8
+
+Top level modules:
+	dadda8
+
+} {} {}} C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/halfAdder.v {1 {vlog -work work -stats=none C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/halfAdder.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module halfAdder
+
+Top level modules:
+	halfAdder
+
+} {} {}} C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/fullAdder.v {1 {vlog -work work -stats=none C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/fullAdder.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module fullAdder
+
+Top level modules:
+	fullAdder
+
+} {} {}}
