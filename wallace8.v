@@ -265,7 +265,7 @@ module wallace8(out_end,out, a, b);
 	wire gout4;
 	wire gout5;
 
-	wire Pout1;
+	wire pout1;
 	wire pout2;
 	wire pout3;
 	wire pout4;

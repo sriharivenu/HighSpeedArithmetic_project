@@ -6,7 +6,7 @@ use POSIX;
 
 #Let n be the number of bits of input;
 
-my $n = 6;
+my $n = 16;
 my $columns = 2*$n; #The total umber of columns
 
 #using hash for maintaing the matrix in terms of columns
@@ -25,7 +25,7 @@ while( $n_var < $n){
 $n_var = ceil($n_var/1.5);
 #opening file to save the output in it
 
-open(my $file, '>', 'dadda.v');
+open(my $file, '>', 'dadda16.v');
 
 #making of n*n matrix i.e. dot product
 print $file " /************************** AND gate DOT PRODUCT matrix ********************************/ \n";
@@ -34,8 +34,9 @@ my $l = 0;
 for( my $i1 = 0; $i1 < $n; $i1 = $i1 +1) {
 	for(my $j1 = $i1; $j1 < $n + $i1; $j1 = $j1 + 1){
 		$l = $j1 - $i1;	
-		print $file "And A$i1$l(P$i1$l, a[$i1], b[$l]);\n";
-		$mat{$rr}{$i1}{$j1} = "P$i1$l";		
+		print $file "	wire P_$i1\_$l;\n";
+		print $file "	and A\_$i1\_$l(P_$i1\_$l, a[$i1], b[$l]);\n";
+		$mat{$rr}{$i1}{$j1} = "P_$i1\_$l";		
 	}
 }
 
@@ -124,11 +125,11 @@ for(my $lev = 0; $lev < $height; $lev = $lev + 1){
 						}
 						#print "Enterred!!!\n";
 						#print"HA: $j2 : $counter - $n_var\n";
-						print $file "wire S$lev$i2$j2;\n";
-						print $file "wire C$lev$i2$j2;\n";
-						print $file "HalfAdder HA$lev$i2$j2(S$lev$i2$j2, C$lev$i2$j2, $mat{$lev}{$i2}{$j2}, $mat{$lev}{$i2+1}{$j2});\n";
-						$mat{$lev + 1}{$row}{$j2} = "S$lev$i2$j2";
-						$next_cry{$lev}{$j2 + 1}{$k} = "C$lev$i2$j2";
+						print $file "	wire S_$lev\_$i2\_$j2;\n";
+						print $file "	wire C_$lev\_$i2\_$j2;\n";
+						print $file "	halfAdder HA_$lev\_$i2\_$j2(S_$lev\_$i2\_$j2, C_$lev\_$i2\_$j2, $mat{$lev}{$i2}{$j2}, $mat{$lev}{$i2+1}{$j2});\n";
+						$mat{$lev + 1}{$row}{$j2} = "S_$lev\_$i2\_$j2";
+						$next_cry{$lev}{$j2 + 1}{$k} = "C_$lev\_$i2\_$j2";
 						$k = $k + 1;
 						$i2 = $i2 + 2;
 						$carry_next_mat = $carry_next_mat + 1;
@@ -142,11 +143,11 @@ for(my $lev = 0; $lev < $height; $lev = $lev + 1){
 							$i2 = $i2 + 1;
 						}
 						#print"FA: $j2 : $counter - $n_var\n";	
-						print $file "wire S$lev$i2$j2;\n";
-						print $file "wire C$lev$i2$j2;\n";
-						print $file "FullAdder FA$lev$i2$j2(S$lev$i2$j2, C$lev$i2$j2, $mat{$lev}{$i2}{$j2},  $mat{$lev}{$i2+1}{$j2}, $mat{$lev}{$i2+2}{$j2});\n";
-						$mat{$lev + 1}{$row}{$j2} = "S$lev$i2$j2";
-						$next_cry{$lev}{$j2 + 1}{$k} = "C$lev$i2$j2";
+						print $file "	wire S_$lev\_$i2\_$j2;\n";
+						print $file "	wire C_$lev\_$i2\_$j2;\n";
+						print $file "	fullAdder FA_$lev\_$i2\_$j2(S_$lev\_$i2\_$j2, C_$lev\_$i2\_$j2, $mat{$lev}{$i2}{$j2},  $mat{$lev}{$i2+1}{$j2}, $mat{$lev}{$i2+2}{$j2});\n";
+						$mat{$lev + 1}{$row}{$j2} = "S_$lev\_$i2\_$j2";
+						$next_cry{$lev}{$j2 + 1}{$k} = "C_$lev\_$i2\_$j2";
 						$k = $k + 1;
 						$i2 = $i2 + 3;
 						$carry_next_mat = $carry_next_mat + 1;
