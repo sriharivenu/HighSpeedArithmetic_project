@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:23 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Sat Apr 22 15:33:02 2017
+# Process ID: 3928
+# Current directory: C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/HighSpeedArithmetic_project.runs/synth_1
+# Command line: vivado.exe -log wallace16.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source wallace16.tcl
+# Log file: C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/HighSpeedArithmetic_project.runs/synth_1/wallace16.vds
+# Journal file: C:/Users/Jayant/Desktop/HighSpeedArithmetic_project/HighSpeedArithmetic_project.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source wallace16.tcl -notrace

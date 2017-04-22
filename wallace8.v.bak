@@ -454,8 +454,7 @@ module wallace8(out_end,out, a, b);
 	//halfAdder HA3104(S3104, C3104, S2104, C2103);
 	//halfAdder HA3105(S3105, C3105, S2105, C2104);
 	//halfAdder HA3106(S3106, C3106, S2106, C2105);
-	assign S3107		= S2107;
-	assign C3107		= 1'b0;
+	halfAdder HA3107(S3107, C3107, S2107, 0);    //remove C1236, C2106, Convert to HA
 	fullAdder FA3108(S3108, C3108, S2108, C2107, C1237);
 	fullAdder FA3109(S3109, C3109, S2109, C2108, C1238);
 	fullAdder FA31010(S31010, C31010, S21010, C2109, C1239);
